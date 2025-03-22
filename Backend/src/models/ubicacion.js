@@ -21,3 +21,8 @@ export const Ubicacion = sequelize.define('Ubicacion', {
         defaultValue: 'Colombia'
     }
 }, { freezeTableName: true });
+
+
+
+/*TODO:
+Cambiar nombre a ciudad y agregar campo de dirección */

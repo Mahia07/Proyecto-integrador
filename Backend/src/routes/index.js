@@ -1,26 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { sequelize } from '../config/database.js';
-import { Usuarios } from "../models/usuarios.js";
-import { Ubicacion } from "../models/ubicacion.js";
-import { Hoteles } from "../models/hoteles.js";
-import { Habitaciones } from "../models/habitaciones.js";
-import { Comodidades } from "../models/comodidades.js";
-import { Opiniones } from "../models/opiniones.js";
-import { Reservas } from "../models/reservas.js";
-import { Pagos } from "../models/pagos.js";
-import { OfertasHabitaciones } from "../models/ofertas_habitaciones.js";
 import { defineRelations } from '../models/relations.js';
-
-defineRelations()
-
-export { 
-    Usuarios, Ubicacion, Hoteles, Habitaciones, 
-    Comodidades, Opiniones, Reservas, Pagos, OfertasHabitaciones 
-};
-
-
-
+import { inicializarDatos } from '../mocks/mock.js';
 
 const app = express();
 const port = 3000;
@@ -34,14 +16,25 @@ app.get('/', (req, res) => {
 
 async function main() {
     try {
-        await sequelize.sync();
+        defineRelations(); // 📌 Definir relaciones ANTES de sincronizar
+
+        await sequelize.sync({ alter: true, force: true }); // 📌 No usar force: true en producción
+        console.log("Base de datos sincronizada correctamente");
+
+        // 📌 Si necesitas datos de prueba, descomenta esto
+        // await inicializarDatos();
+
         app.listen(port, () => {
             console.log(`Server running on port: ${port}`);
         });
-        console.log('Conexión exitosa');
+
+        console.log('Conexión a la base de datos exitosa');
     } catch (error) {
-        console.log(error, 'Error de conexión a la base de datos');
+        console.error('Error de conexión a la base de datos:', error);
     }
 }
+
+//TODO:
+/* PASAR TODO INGLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 main();

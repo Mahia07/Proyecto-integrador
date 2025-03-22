@@ -7,3 +7,6 @@ export const Usuarios = sequelize.define("Usuario", {
     email: { type: DataTypes.STRING, allowNull: false, unique: true }
 }, { freezeTableName: true });
 
+
+/* TODO:
+Integrar contraseña, número de concacto. Agregar booleano si esta activo o no. */

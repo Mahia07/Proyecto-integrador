@@ -6,3 +6,4 @@ export const Opiniones = sequelize.define("Opinion", {
     puntuacion: { type: DataTypes.INTEGER, allowNull: false },
     comentario: { type: DataTypes.TEXT }
 }, { freezeTableName: true });
+

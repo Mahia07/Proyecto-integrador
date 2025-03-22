@@ -7,4 +7,4 @@ export const Hoteles = sequelize.define("Hotel", {
     nombre: { type: DataTypes.STRING, allowNull: false },
     estrellas: { type: DataTypes.INTEGER, allowNull: false },
     calificacion_promedio: { type: DataTypes.FLOAT, defaultValue: 0 },
-    },{ freezeTableName: true });
+}, { freezeTableName: true });
