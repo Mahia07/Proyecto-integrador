@@ -7,7 +7,7 @@ export const Ubicacion = sequelize.define('Ubicacion', {
         primaryKey: true,
         autoIncrement: true
     },
-    nombre: {
+    ciudad: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
@@ -19,5 +19,9 @@ export const Ubicacion = sequelize.define('Ubicacion', {
     pais: {
         type: DataTypes.STRING,
         defaultValue: 'Colombia'
-    }
+    },
+    direccion: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
 }, { freezeTableName: true });
