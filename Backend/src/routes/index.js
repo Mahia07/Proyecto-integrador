@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { sequelize } from '../config/database.js'
 import { defineRelations } from '../models/relations.js'
+import { InitializeData } from '../mocks/datamock.js'
 
 const app = express()
 const port = 3000

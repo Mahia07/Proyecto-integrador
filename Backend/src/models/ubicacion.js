@@ -14,7 +14,6 @@ export const Location = sequelize.define('Ubicacion', {
     },
     department: {
         type: DataTypes.STRING,
-        allowNull: false
     },
     country: {
         type: DataTypes.STRING,
