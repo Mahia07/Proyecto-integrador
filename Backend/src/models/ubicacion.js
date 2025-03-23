@@ -1,26 +1,26 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
 
-export const Ubicacion = sequelize.define('Ubicacion', { 
+export const Location = sequelize.define('Ubicacion', { 
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    ciudad: {
+    city: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
-    departamento: {
+    department: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    pais: {
+    country: {
         type: DataTypes.STRING,
         defaultValue: 'Colombia'
     },
-    direccion: {
+    address: {
         type: DataTypes.STRING,
         allowNull: false
     },

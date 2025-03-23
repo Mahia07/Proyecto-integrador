@@ -2,10 +2,10 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
 import { Ubicacion } from "./ubicacion.js";
 
-export const Hoteles = sequelize.define("Hotel", {
+export const Hotels = sequelize.define("Hotel", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    nombre: { type: DataTypes.STRING, allowNull: false },
-    estrellas: { type: DataTypes.INTEGER, allowNull: false },
-    calificacion_promedio: { type: DataTypes.FLOAT, defaultValue: 0 },
+    name: { type: DataTypes.STRING, allowNull: false },
+    star_rating: { type: DataTypes.INTEGER, allowNull: false },
+    average_rating: { type: DataTypes.FLOAT, defaultValue: 0 },
     img: {type: DataTypes.STRING, allowNull: false}
     },{ freezeTableName: true });
