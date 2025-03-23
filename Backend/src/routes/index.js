@@ -19,7 +19,13 @@ async function main() {
 
         await sequelize.sync({alter: true, force: true})
         console.log('Base de datos sincronozada')
+
+        app.listen(port, ()=> {
+            console.log(`serve running on port ${port}`)
+        })
+
+        console.log('Conexion a la base de datos exitosa')
     } catch (error) {
-        
+        console.log('Error al conectar a la base de datos')
     }
 }
