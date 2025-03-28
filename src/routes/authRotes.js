@@ -40,20 +40,18 @@ authRouter.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        // Buscar el usuario en la base de datos
+
         const user = await Users.findOne({ where: { username } });
 
         if (!user) {
             return res.status(401).json({ message: 'Usuario no encontrado' });
         }
 
-        // Comparar la contraseña ingresada con la almacenada
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
-        // Generar el token de autenticación
         const token = jwt.sign(
             { id: user.id, username: user.username, role: user.role },
             JWT_SECRET,
