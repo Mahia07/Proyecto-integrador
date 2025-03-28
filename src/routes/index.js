@@ -32,7 +32,7 @@ async function main() {
     defineRelations();
 
     console.log("Modelos registrados:", Object.keys(sequelize.models));
-    await sequelize.getQueryInterface().dropTable('Usuario')
+    await sequelize.getQueryInterface().dropTable("Usuario");
     await sequelize.sync({ alter: true, force: true });
 
     console.log("Base de datos sincronizada correctamente".green);

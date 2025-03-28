@@ -7,7 +7,7 @@ import { Characteristics } from "../models/comodidades.js";
 import { Opinions } from "../models/opiniones.js";
 import { Reservations } from "../models/reservas.js";
 import { sequelize } from "../config/database.js";
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 //import dotenv from 'dotenv';
 import "colors";
 import { Sequelize } from "sequelize";
@@ -68,7 +68,7 @@ router.get("/hotel/busqueda/:nombre", async (req, res) => {
     const hotel = await Hotels.findAll({
       where: {
         name: {
-        [Op.like]: `%${nombre}%`
+          [Op.like]: `%${nombre}%`,
         },
       },
       include: [
@@ -92,26 +92,38 @@ router.get("/hotel/busqueda/:nombre", async (req, res) => {
 
 router.post("/reservation", verifyToken, async (req, res) => {
   try {
-    const { bedroomIds, start_date, end_date, numberOfNights,numberOfPeople, hotelId } = req.body;
+    const {
+      bedroomIds,
+      start_date,
+      end_date,
+      numberOfNights,
+      numberOfPeople,
+      hotelId,
+    } = req.body;
     const userId = req.user.id;
 
     if (!bedroomIds || bedroomIds.length === 0) {
-      return res.json({message: 'Escoger al menos una habitacion'})
+      return res.json({ message: "Escoger al menos una habitacion" });
     }
     const existReservations = await Reservations.findAll({
       include: [
         {
           model: Bedrooms,
-          where: {id:bedroomIds},
-        }
+          where: { id: bedroomIds },
+        },
       ],
       where: {
-        start_date: {[Op.lt]: end_date}, //menor que <
-        end_date: {[Op.gt]: start_date} //Mayor que >
-      }
-    })
+        start_date: { [Op.lt]: end_date }, //menor que <
+        end_date: { [Op.gt]: start_date }, //Mayor que >
+      },
+    });
     if (existReservations.length > 0) {
-      return res.status(400).json({message: 'Las habitaciones seleccionadas ya estan reservadas en esas fechas'})
+      return res
+        .status(400)
+        .json({
+          message:
+            "Las habitaciones seleccionadas ya estan reservadas en esas fechas",
+        });
     }
     const newReservation = await Reservations.create({
       usuarioId: userId,
@@ -119,12 +131,10 @@ router.post("/reservation", verifyToken, async (req, res) => {
       start_date,
       end_date,
       numberOfPeople,
-      numberOfNights
-      
-    })
+      numberOfNights,
+    });
 
-    res.json({message: 'Reserva Realizada con exito'})
-
+    res.json({ message: "Reserva Realizada con exito" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al realizar la reserva" });
@@ -134,17 +144,18 @@ router.post("/reservation", verifyToken, async (req, res) => {
 router.get("/reservations/:user", verifyToken, async (req, res) => {
   try {
     const { user } = req.params;
-    const fechaActual = new Date(); 
+    const fechaActual = new Date();
 
-    
-    const userReservations = await Reservations.findAll({  
+    const userReservations = await Reservations.findAll({
       where: { userName: user },
       include: [
         { model: Bedrooms, attributes: ["Type", "price_night"] },
-        { model: Hotels, attributes: ["name", "star_rating", "average_rating", "img"] },
+        {
+          model: Hotels,
+          attributes: ["name", "star_rating", "average_rating", "img"],
+        },
       ],
     });
-
 
     if (!userReservations.length) {
       return res.status(404).json({ message: "No hay reservas" });
@@ -162,16 +173,14 @@ router.get("/reservations/:user", verifyToken, async (req, res) => {
       }
     });
 
-  
     return res.json({ activeReservations, pastReservations });
-
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error del servidor" });
   }
 });
 
-console.log(Reservations); 
+console.log(Reservations);
 console.log("Se está ejecutando routes.js".yellow);
 
 export default router;

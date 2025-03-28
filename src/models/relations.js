@@ -52,5 +52,5 @@ export const defineRelations = () => {
   Hotels.hasMany(Reservations, { foreignKey: "hotelId" });
   Reservations.belongsTo(Hotels, { foreignKey: "hotelId" });
 };
-console.log('defineRelations ejecutandose')
+console.log("defineRelations ejecutandose");
 defineRelations();
