@@ -13,7 +13,7 @@ function UpdateHotelForm() {
   });
 
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // 'success' o 'error'
+  const [messageType, setMessageType] = useState(""); 
 
   useEffect(() => {
     const fetchHotel = async () => {
@@ -53,7 +53,7 @@ function UpdateHotelForm() {
     if (response?.message) {
       setMessage("Hotel actualizado correctamente");
       setMessageType("success");
-      // setTimeout(() => navigate("/hoteles"), 1500);
+      
     } else {
       setMessage("Error al actualizar el hotel");
       setMessageType("error");
