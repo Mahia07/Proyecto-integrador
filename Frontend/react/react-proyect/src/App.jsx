@@ -4,7 +4,7 @@ import Header from '../src/components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
 import RegisterForm from './components/Register/Register';
 import LoginForm from './components/Login/Login';
-import BedroomsList from './Components/Bedrooms/Bedrooms';
+import BedroomsList from './components/Bedrooms/Bedrooms';
 import Reservation from './components/Reservation/Reservation';
 import UserReservations from './Components/Reservation/userReservation';
 import HotelForm from './components/Admin/Form';
