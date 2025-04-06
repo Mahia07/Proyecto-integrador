@@ -6,7 +6,7 @@ import RegisterForm from './components/Register/Register';
 import LoginForm from './components/Login/Login';
 import BedroomsList from './components/Bedrooms/Bedrooms';
 import Reservation from './components/Reservation/Reservation';
-import UserReservations from './Components/Reservation/userReservation';
+import UserReservations from './components/Reservation/userReservation';
 import HotelForm from './components/Admin/Form';
 import UpdateHotelForm from './components/Admin/updateHotel';
 import './index.css';
