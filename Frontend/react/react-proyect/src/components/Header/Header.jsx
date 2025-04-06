@@ -95,7 +95,7 @@ const Header = () => {
             </form>
           </li>
 
-          {isLoggedIn && isAdmin && (
+      
             <>
               <li className="navLink">
                 <Link to="/hotels/create">Crear Hotel</Link>
@@ -104,7 +104,7 @@ const Header = () => {
                 <p onClick={handleLogout} className="logoutButton">Cerrar sesión</p>
               </li>
             </>
-          )}
+          
 
           {!isLoggedIn && (
             <>

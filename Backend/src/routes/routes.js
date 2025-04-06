@@ -68,13 +68,12 @@ router.get("/busqueda/:nombre", async (req, res) => {
       return res.status(404).json({ message: "Hotel no encontrado" });
     }
 
-    res.json([hotel]);  
+    res.json([hotel]);
   } catch (error) {
     console.error("Error al buscar hotel:", error);
     res.status(500).json({ message: "Error al buscar hotel" });
   }
 });
-
 
 router.post("/reservation", verifyToken, async (req, res) => {
   console.log("Datos del usuario autenticado en reserva:", req.user);
@@ -90,10 +89,12 @@ router.post("/reservation", verifyToken, async (req, res) => {
     } = req.body;
 
     const userId = req.user.id;
-    const username = req.user.username;  
+    const username = req.user.username;
 
     if (!hotelName) {
-      return res.status(400).json({ message: "El nombre del hotel es obligatorio" });
+      return res
+        .status(400)
+        .json({ message: "El nombre del hotel es obligatorio" });
     }
 
     const hotel = await Hotels.findOne({ where: { name: hotelName } });
@@ -104,7 +105,9 @@ router.post("/reservation", verifyToken, async (req, res) => {
     const hotelId = hotel.id;
 
     if (!bedroomType || bedroomType.length === 0) {
-      return res.status(400).json({ message: "Escoger al menos una habitación" });
+      return res
+        .status(400)
+        .json({ message: "Escoger al menos una habitación" });
     }
 
     const existReservations = await Reservations.findAll({
@@ -122,13 +125,14 @@ router.post("/reservation", verifyToken, async (req, res) => {
 
     if (existReservations.length > 0) {
       return res.status(400).json({
-        message: "Las habitaciones seleccionadas ya están reservadas en esas fechas",
+        message:
+          "Las habitaciones seleccionadas ya están reservadas en esas fechas",
       });
     }
 
     const newReservation = await Reservations.create({
       usuarioId: userId,
-      username, 
+      username,
       hotelId,
       start_date,
       end_date,
@@ -142,9 +146,6 @@ router.post("/reservation", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Error al realizar la reserva" });
   }
 });
-
-
-
 
 router.get("/reservaciones/:user", verifyToken, async (req, res) => {
   try {
@@ -187,7 +188,14 @@ router.get("/reservaciones/:user", verifyToken, async (req, res) => {
 
 // AUTHROUTES
 router.post("/register", async (req, res) => {
-  const { name, email, username, phoneNumber, password, role = "Cliente" } = req.body;
+  const {
+    name,
+    email,
+    username,
+    phoneNumber,
+    password,
+    role = "Cliente",
+  } = req.body;
   console.log("Datos recibidos:", req.body);
 
   try {
@@ -256,13 +264,13 @@ router.post("/login", async (req, res) => {
 });
 console.log("Se está ejecutando routes.js".yellow);
 router.get("/routesProtected", verifyToken, async (req, res) => {
-  res.json({message: 'Accediste a ruta protegida'})
-  console.log('Ruta protegida')
-})
+  res.json({ message: "Accediste a ruta protegida" });
+  console.log("Ruta protegida");
+});
 
 router.get("/Bedrooms", async (req, res) => {
   try {
-    const habitaciones = await Bedrooms.findAll(); 
+    const habitaciones = await Bedrooms.findAll();
     res.json(habitaciones);
   } catch (error) {
     console.error("Error al obtener habitaciones:", error);
@@ -270,30 +278,24 @@ router.get("/Bedrooms", async (req, res) => {
   }
 });
 
-
-router.post('/reservations/:id', async (req, res) => {
+router.post("/reservations/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
     const reservation = await Reservations.findByPk(id);
 
     if (!reservation) {
-      return res.status(404).json({ message: 'Reserva no encontrada' });
+      return res.status(404).json({ message: "Reserva no encontrada" });
     }
 
-    
     reservation.active = false;
     await reservation.save();
 
-    res.status(200).json({ message: 'Reserva cancelada exitosamente' });
+    res.status(200).json({ message: "Reserva cancelada exitosamente" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error en el servidor' });
+    res.status(500).json({ message: "Error en el servidor" });
   }
 });
 
-
-
-
 export default router;
-

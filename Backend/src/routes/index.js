@@ -8,6 +8,7 @@ import router from "./routes.js";
 import Adminrouter from "./adminRoutes.js";
 import "colors";
 
+
 const app = express();
 const port = 3000;
 
@@ -18,7 +19,6 @@ app.use(express.json());
 app.use(router);
 app.use("/hotels", Adminrouter);
 
-
 async function main() {
   try {
     console.log("Ejecutando defineRelations()...");
@@ -27,19 +27,15 @@ async function main() {
     console.log("Sincronizando base de datos...");
 
     sequelize.sync({  alter: false }).then(() => {
-      console.log("Base de datos sincronizada") 
+      console.log("Base de datos sincronizada"); 
     });
-    
 
     console.log("Base de datos sincronizada correctamente".green);
 
     console.log("Insertando datos iniciales...");
     //await InitializeData();
 
-    app.listen(port, '0.0.0.0', () => {
-      console.log(`Server running on port: ${port}`.magenta);
-    });
-
+    
     console.log("Conexión a la base de datos exitosa".cyan);
   } catch (error) {
     console.error("Error de conexión a la base de datos:".red, error);
@@ -47,3 +43,6 @@ async function main() {
 }
 
 main();
+app.listen(port, () => {
+  console.log(`Servidor corriendo en el puerto ${port}`);
+});
