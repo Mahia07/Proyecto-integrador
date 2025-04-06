@@ -1,17 +1,17 @@
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize("Hotel_DB", "postgres", "SE.Abril23", {
-  host: "localhost",
-  dialect: "postgres",
-  logging: false,
+
+const sequelize = new Sequelize('postgresql://hotel_db_31uy_user:hpE3VeI0jimrT3EnNn2IVLxqLWxmMuzW@dpg-cvp7igs9c44c73bv04a0-a.oregon-postgres.render.com/hotel_db_31uy', {
+  dialect: 'postgres',
   dialectOptions: {
-    charset: "utf8",
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   },
-  define: {
-    charset: "utf8",
-    collate: "utf8_general_ci",
-  },
+  logging: false
 });
+
 
 async function syncSequence() {
   try {
@@ -35,4 +35,4 @@ export async function syncDB() {
   }
 }
 
-
+export { sequelize };

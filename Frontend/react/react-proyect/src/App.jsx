@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../src/components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
 import RegisterForm from './components/Register/Register';
-import LoginForm from './Components/Login/Login';
+import LoginForm from './components/Login/Login';
 import BedroomsList from './Components/Bedrooms/Bedrooms';
 import Reservation from './components/Reservation/Reservation';
 import UserReservations from './Components/Reservation/userReservation';
 import HotelForm from './components/Admin/Form';
-import UpdateHotelForm from './Components/Admin/updateHotel';
+import UpdateHotelForm from './components/Admin/updateHotel';
 import './index.css';
 
 function App() {

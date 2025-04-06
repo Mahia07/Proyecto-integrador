@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { sequelize, syncDB } from "../config/database.js";
 import { defineRelations } from "../models/relations.js";
-//import { InitializeData } from "../mocks/datamock.js";
+import { InitializeData } from "../mocks/datamock.js";
 //import { Users } from "../models/usuarios.js";
 import router from "./routes.js";
 import Adminrouter from "./adminRoutes.js";
@@ -26,16 +26,16 @@ async function main() {
 
     console.log("Sincronizando base de datos...");
 
-    sequelize.sync({  alter: false }).then(() => {
+    sequelize.sync({  force: true }).then(() => {
       console.log("Base de datos sincronizada"); 
     });
 
     console.log("Base de datos sincronizada correctamente");
 
     console.log("Insertando datos iniciales...");
-    //await InitializeData();
+    await InitializeData();
 
-    
+  
     console.log("Conexión a la base de datos exitosa");
   } catch (error) {
     console.error("Error de conexión a la base de datos:", error);

@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js"; // Asegúrate de importar tu conexión a PostgreSQL
-
 export const Users = sequelize.define(
   "Usuarios",
   {
