@@ -6,7 +6,7 @@ import { defineRelations } from "../models/relations.js";
 //import { Users } from "../models/usuarios.js";
 import router from "./routes.js";
 import Adminrouter from "./adminRoutes.js";
-import "colors";
+
 
 
 const app = express();
@@ -30,15 +30,15 @@ async function main() {
       console.log("Base de datos sincronizada"); 
     });
 
-    console.log("Base de datos sincronizada correctamente".green);
+    console.log("Base de datos sincronizada correctamente");
 
     console.log("Insertando datos iniciales...");
     //await InitializeData();
 
     
-    console.log("Conexión a la base de datos exitosa".cyan);
+    console.log("Conexión a la base de datos exitosa");
   } catch (error) {
-    console.error("Error de conexión a la base de datos:".red, error);
+    console.error("Error de conexión a la base de datos:", error);
   }
 }
 
