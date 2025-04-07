@@ -11,8 +11,11 @@ import Adminrouter from "./adminRoutes.js";
 
 const app = express();
 const port = 3000;
+app.use(cors({
+  origin: ['https://proyecto-integrador-1-62p7.onrender.com', 'http://localhost:5173'],
+  credentials: true
+}));
 
-app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 // Rutas
