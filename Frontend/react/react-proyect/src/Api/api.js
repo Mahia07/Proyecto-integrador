@@ -1,8 +1,9 @@
 import { Await, data } from "react-router-dom";
+const Backend_Url = 'https://back-proyecto-integrador.onrender.com'
 
 export const getHoteles = async () => {
   try {
-    const results = await fetch("http://localhost:3000/hoteles");
+    const results = await fetch(`${Backend_Url}/hoteles`);
     const data = await results.json();
     return data;
   } catch (error) {
@@ -14,7 +15,7 @@ export const getHoteles = async () => {
 export const getHotelByNombre = async (nombre) => {
   try {
     const results = await fetch(
-      `http://localhost:3000/hotel/busqueda/${nombre}`
+      `${Backend_Url}/hotel/busqueda/${nombre}`
     );
     const data = await results.json();
     return data;
@@ -34,7 +35,7 @@ export const postReservation = async ({
   token,
 }) => {
   try {
-    const response = await fetch("http://localhost:3000/reservation", {
+    const response = await fetch(`${Backend_Url}/reservation`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +67,7 @@ export const postReservation = async ({
 
 export const getReservacionesUsuario = async (username, token) => {
   try {
-    const response = await fetch(`http://localhost:3000/reservaciones/${username}`, {
+    const response = await fetch(`${Backend_Url}/reservaciones/${username}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -90,7 +91,7 @@ export const registerUser = async ({
   role,
 }) => {
   try {
-    const response = await fetch("http://localhost:3000/register", {
+    const response = await fetch(`${Backend_Url}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -122,7 +123,7 @@ export const registerUser = async ({
 
 export const loginUser = async ({ username, password }) => { 
   try {
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch(`${Backend_Url}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -170,7 +171,7 @@ export const getProtectedRoutes = async () => {
 
 export const getBedrooms = async () => {
   try {
-    const response = await fetch("http://localhost:3000/Bedrooms"); 
+    const response = await fetch(`${Backend_Url}/Bedrooms`); 
 
     if (!response.ok) {
       throw new Error("Error al obtener las habitaciones");
@@ -200,7 +201,7 @@ export function createHotel(hotel) {
 
   const token = localStorage.getItem("token"); // o donde estés guardando el JWT
 
-  return fetch("http://localhost:3000/hotels/create", {
+  return fetch(`${Backend_Url}/hotels/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -217,7 +218,7 @@ export function createHotel(hotel) {
 // Actualizar un hotel
 export const updateHotel = async (token, id, { name, star_rating, description }) => {
   try {
-    const response = await fetch(`http://localhost:3000/hotels/update/${id}`, {
+    const response = await fetch(`${Backend_Url}/hotels/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -234,7 +235,7 @@ export const updateHotel = async (token, id, { name, star_rating, description })
 
 export const deleteHotel = async (token, id) => {
   try {
-    const response = await fetch(`http://localhost:3000/hotels/delete/${id}`, {  // Cambié "/delete" por "/hotels"
+    const response = await fetch(`${Backend_Url}/hotels/delete/${id}`, {  // Cambié "/delete" por "/hotels"
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -251,7 +252,7 @@ export const deleteHotel = async (token, id) => {
 
 export const cancelReservation = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/reservations/${id}`, {
+    const response = await fetch(`${Backend_Url}/reservations/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
