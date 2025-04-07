@@ -26,9 +26,9 @@ async function main() {
 
     console.log("Sincronizando base de datos...");
 
-    sequelize.sync({  force: true }).then(() => {
+/*sequelize.sync({  force: true }).then(() => {
       console.log("Base de datos sincronizada"); 
-    });
+    });*/
 
     console.log("Base de datos sincronizada correctamente");
 

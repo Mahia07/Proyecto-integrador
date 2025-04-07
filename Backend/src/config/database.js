@@ -1,17 +1,15 @@
 import { Sequelize } from "sequelize";
 
-
 const sequelize = new Sequelize('postgresql://hotel_db_31uy_user:hpE3VeI0jimrT3EnNn2IVLxqLWxmMuzW@dpg-cvp7igs9c44c73bv04a0-a.oregon-postgres.render.com/hotel_db_31uy', {
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   },
-  logging: false
+  logging: false,
 });
-
 
 async function syncSequence() {
   try {
