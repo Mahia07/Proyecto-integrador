@@ -8,6 +8,7 @@ export const Bedrooms = sequelize.define(
     type: { type: DataTypes.STRING, allowNull: false },
     price_night: { type: DataTypes.FLOAT, allowNull: false },
     available: { type: DataTypes.BOOLEAN, defaultValue: true },
+    img: {type: DataTypes.STRING, defaultValue:false}
   },
   { freezeTableName: true }
 );

@@ -26,5 +26,8 @@ export const Location = sequelize.define(
       allowNull: false,
     },
   },
-  { freezeTableName: true }
+  { freezeTableName: true,
+    timestamps: true
+   },
+  
 );

@@ -8,7 +8,8 @@ export const Hotels = sequelize.define(
     name: { type: DataTypes.STRING, allowNull: false },
     star_rating: { type: DataTypes.INTEGER, allowNull: false },
     average_rating: { type: DataTypes.FLOAT, defaultValue: 0 },
-    img: { type: DataTypes.STRING, allowNull: false },
-  },
+    description: {type: DataTypes.STRING},
+    img: { type: DataTypes.STRING, allowNull: true},
+  }, 
   { freezeTableName: true }
 );

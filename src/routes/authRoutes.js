@@ -18,11 +18,14 @@ authRouter.post("/register", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword);
 
     await Users.create({
       username,
       password: hashedPassword,
     });
+
+    console.log("Usuario registrado exitosamente:", username);
 
     res.status(200).json({ message: "Usuario registrado exitosamente" });
   } catch (error) {
@@ -41,17 +44,18 @@ authRouter.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Usuario no encontrado" });
     }
 
+
     const validPassword = await bcrypt.compare(password, user.password);
+
     if (!validPassword) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
-
     const token = jwt.sign(
-      { id: user.id, username: user.username, role: user.role },
+      { id: user.id, username: user.username, role: user.role }, // ← Aquí estás guardando el rol
       JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "12h" }
     );
-
+    
     res.json({ token });
   } catch (error) {
     console.error(error);
