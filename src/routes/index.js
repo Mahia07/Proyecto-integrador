@@ -1,51 +1,54 @@
 import express from "express";
 import cors from "cors";
-import { sequelize } from "../config/database.js";
+import { sequelize, syncDB } from "../config/database.js";
 import { defineRelations } from "../models/relations.js";
 import { InitializeData } from "../mocks/datamock.js";
-import authRoutes from "./authRotes.js";
+//import { Users } from "../models/usuarios.js";
 import router from "./routes.js";
 import Adminrouter from "./adminRoutes.js";
-import "colors";
+
+
 
 const app = express();
-const port = 3000;
+const port = 3001;
+app.use(cors({
+  origin: ['https://proyecto-integrador-1-62p7.onrender.com', 'http://localhost:5173'],
+  credentials: true
+}));
 
-app.use(cors());
+app.options('*', cors());
+
+
 app.use(express.json());
+
 // Rutas
-app.use("/auth", authRoutes);
 app.use(router);
-
-app.use(Adminrouter);
-
-app.get("/", (req, res) => {
-  res.send("Servidor funcionando correctamente");
-});
-
-app.get("/", (req, res) => {
-  res.send("Chao");
-});
+app.use("/hotels", Adminrouter);
 
 async function main() {
   try {
-    defineRelations();
+    console.log("Ejecutando defineRelations()...");
+    defineRelations(); 
 
-    console.log("Modelos registrados:", Object.keys(sequelize.models));
-    await sequelize.getQueryInterface().dropTable('Usuario')
-    await sequelize.sync({ alter: true, force: true });
+    console.log("Sincronizando base de datos...");
 
-    console.log("Base de datos sincronizada correctamente".green);
+/*sequelize.sync({  force: true }).then(() => {
+      console.log("Base de datos sincronizada"); 
+    });*/
 
+    console.log("Base de datos sincronizada correctamente");
+
+    console.log("Insertando datos iniciales...");
     await InitializeData();
 
-    app.listen(port, () => {
-      console.log(`Server running on port: ${port}`.magenta);
-    });
-
-    console.log("Conexión a la base de datos exitosa".cyan);
+  
+    console.log("Conexión a la base de datos exitosa");
   } catch (error) {
-    console.error("Error de conexión a la base de datos:".red, error);
+    console.error("Error de conexión a la base de datos:", error);
   }
 }
+
 main();
+app.listen(port, () => {
+  console.log(`Servidor corriendo en el puerto ${port}`);
+});
