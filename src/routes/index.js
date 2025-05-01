@@ -12,16 +12,24 @@ import Adminrouter from "./adminRoutes.js";
 const app = express();
 const port = 3001;
 app.use(cors({
-  origin: ['https://proyecto-integrador-1-62p7.onrender.com', 'http://localhost:5173'],
+  origin: ['https://proyecto-integrador-1-62p7.onrender.com', 'http://localhost:5173', 'http://localhost:5174'],
   credentials: true
 }));
 
-app.options('*', cors());
+app.options('*', cors({
+  origin: [
+    'https://proyecto-integrador-1-62p7.onrender.com',
+    'http://localhost:5173',
+    'http://localhost:5174'
+  ],
+  credentials: true
+}));
+
 
 
 app.use(express.json());
 
-// Rutas
+
 app.use(router);
 app.use("/hotels", Adminrouter);
 
